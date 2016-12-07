@@ -1,9 +1,18 @@
-import orm
+
+import orm,asyncio,sys
 from models import User, Blog, Comment
 
-def test():
-    yield from orm.create_pool(host="10.104.20.123",user='developer', password='developer1015', database='awesome')
+async def test(loop):
+    await orm.create_pool(loop=loop,user='www-data', password='www-data', db='awesome')
 
-    u = User(name='Test', email='test@example.com', passwd='1234567890', image='about:blank')
+    u=User(name='test20',email='test20@test.com',passwd='test',image='about:blank')
 
-    yield from u.save()
+    await u.save()
+
+if __name__ == '__main__':
+
+    loop = asyncio.get_event_loop()
+    loop.run_until_complete( asyncio.wait([test( loop )]) )  
+    loop.close()
+    if loop.is_closed():
+        sys.exit(0)
