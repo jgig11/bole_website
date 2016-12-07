@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-__author__ = 'Jgig11'
+__author__ = 'ReedSun'
 
 import asyncio
 import logging
@@ -26,7 +26,7 @@ async def create_pool(loop, **kw):
     __pool = await aiomysql.create_pool(
         # 下面就是创建数据库连接需要用到的一些参数，从**kw（关键字参数）中取出来
         # kw.get的作用应该是，当没有传入参数是，默认参数就是get函数的第二项
-        host=kw['host'],  # 数据库服务器位置，默认设在本地
+        host=kw.get('host', 'localhost'),  # 数据库服务器位置，默认设在本地
         port=kw.get('port', 3306),  # mysql的端口，默认设为3306
         user=kw['user'],  # 登陆用户名，通过关键词参数传进来。
         password=kw['password'],  # 登陆密码，通过关键词参数传进来
